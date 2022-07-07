@@ -1,0 +1,13 @@
+[Unit]
+Description=medis
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/home/medis_manager/
+Environment=DJANGO_SETTINGS_MODULE=medis_manager.settings_prod
+ExecStart=/home/env/medis/bin/gunicorn --reload --bind unix:/home/medis_manager/medis.sock medis_manager.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
